@@ -41,16 +41,13 @@ const AdminLogin = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
-        mode: 'cors',
-        credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || errorData.message || 'Login failed');
+        throw new Error(errorData.error || 'Login failed');
       }
 
       const data = await response.json();
@@ -59,8 +56,7 @@ const AdminLogin = () => {
       // Redirect to admin dashboard
       navigate('/admin');
     } catch (error) {
-      console.error('Login error:', error);
-      setError(error.message || 'Failed to login. Please try again.');
+      setError(error.message);
     } finally {
       setLoading(false);
     }
