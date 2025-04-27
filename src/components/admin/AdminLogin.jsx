@@ -21,7 +21,7 @@ import {
 } from '@mui/icons-material';
 import './AdminLogin.css';
 
-const API_BASE_URL = 'http://localhost:3001/api/admin';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api/admin';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -41,13 +41,15 @@ const AdminLogin = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Login failed');
+        throw new Error(errorData.error || errorData.message || 'Login failed');
       }
 
       const data = await response.json();
@@ -56,7 +58,8 @@ const AdminLogin = () => {
       // Redirect to admin dashboard
       navigate('/admin');
     } catch (error) {
-      setError(error.message);
+      console.error('Login error:', error);
+      setError(error.message || 'Failed to login. Please try again.');
     } finally {
       setLoading(false);
     }
