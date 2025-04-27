@@ -16,12 +16,14 @@ admin.initializeApp({
 const app = express();
 
 // Configure CORS
-app.use(cors({
-  origin: true, // Allow all origins in development
+const corsOptions = {
+  origin: 'https://adminhehe.netlify.app',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-}));
+};
+
+app.use(cors(corsOptions));
 
 // Add logging middleware
 app.use((req, res, next) => {
