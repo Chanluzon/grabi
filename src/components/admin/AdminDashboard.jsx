@@ -94,7 +94,7 @@ ChartJS.register(
   Legend
 );
 
-const API_BASE_URL = 'http://localhost:3001/api/admin';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api/admin';
 
 const AdminDashboard = () => {
   const theme = useTheme();
