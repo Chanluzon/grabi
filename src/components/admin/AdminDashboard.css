@@ -1,0 +1,177 @@
+/* AdminDashboard.css */
+
+/* Main container styles */
+.admin-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main content area */
+.main-content {
+  flex-grow: 1;
+  padding: 16px;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  padding-top: 64px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Content wrapper */
+.content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 8px 16px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Table container styles */
+.table-container {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  flex-grow: 1;
+  overflow: auto;
+  max-height: calc(100vh - 200px);
+  margin-bottom: 0;
+}
+
+.table-container .MuiTableCell-root {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+}
+
+.table-container::-webkit-scrollbar {
+  display: none;
+}
+
+.table-container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Table header styles */
+.table-header {
+  background-color: #f5f5f5;
+}
+
+.table-header .MuiTableCell-head {
+  font-weight: 600;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+/* Table row styles */
+.table-row-odd {
+  background-color: #fafafa;
+}
+
+/* Loading container */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f5f5f5;
+  z-index: 9999;
+}
+
+/* Empty state container */
+.empty-state-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+/* Search field */
+.search-field {
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-field .MuiOutlinedInput-root {
+  background-color: white;
+}
+
+/* Usage stats dialog */
+.usage-stats-dialog .MuiDialog-paper {
+  max-width: 1200px;
+}
+
+/* Chart container */
+.chart-container {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Table scrollbar styles */
+.table-scrollbar {
+  height: 300px;
+  overflow: auto;
+}
+
+.table-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  background-color: white;
+}
+
+.table-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+.table-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #bdbdbd;
+}
+
+.table-scrollbar::-webkit-scrollbar-track {
+  background-color: white;
+}
+
+/* User details dialog */
+.user-details-dialog .MuiDialog-paper {
+  max-width: 600px;
+}
+
+/* Context menu */
+.context-menu {
+  z-index: 1300;
+}
+
+/* Snackbar */
+.snackbar {
+  bottom: 16px;
+  right: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 960px) {
+  .content-wrapper {
+    padding: 8px;
+  }
+  
+  .search-field {
+    max-width: 100%;
+  }
+} 
