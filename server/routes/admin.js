@@ -107,26 +107,42 @@ router.delete('/users/:userId', async (req, res) => {
   }
 });
 
-// Admin login
+// Admin login route
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Verify admin credentials (you should implement proper admin authentication)
-    // For now, we'll use a simple check against environment variables
-    const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@example.com';
-    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+    // Check if the user exists in Firebase Authentication
+    const userRecord = await admin.auth().getUserByEmail(email);
+    
+    // Verify if the user is an admin (you should have a way to identify admin users)
+    const db = admin.database();
+    const userRef = db.ref(`users/${userRecord.uid}`);
+    const snapshot = await userRef.once('value');
+    const userData = snapshot.val();
 
-    if (email !== ADMIN_EMAIL || password !== ADMIN_PASSWORD) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+    if (!userData || userData.accountType !== 'admin') {
+      return res.status(403).json({ error: 'Access denied. Admin privileges required.' });
     }
 
-    // Generate a simple token (in production, use JWT or similar)
-    const token = Buffer.from(`${email}:${Date.now()}`).toString('base64');
+    // Create a custom token for the admin
+    const token = await admin.auth().createCustomToken(userRecord.uid);
+
+    // Set CORS headers
+    res.header('Access-Control-Allow-Origin', 'https://adminhehe.netlify.app');
+    res.header('Access-Control-Allow-Credentials', 'true');
     
-    res.json({ token });
+    res.json({ 
+      token,
+      user: {
+        uid: userRecord.uid,
+        email: userRecord.email,
+        accountType: userData.accountType
+      }
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Login error:', error);
+    res.status(401).json({ error: 'Invalid email or password' });
   }
 });
 
